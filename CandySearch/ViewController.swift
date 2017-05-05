@@ -8,22 +8,21 @@
 
 import UIKit
 
-class ViewController: UITableViewController , UISearchBarDelegate, UISearchResultsUpdating{
+class ViewController: UITableViewController{
     
     let searchController = UISearchController(searchResultsController: nil)
     var filteredCandies = [Candy]()
     var candies = [Candy]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchController.searchBar.scopeButtonTitles = ["All","Chocolate","Hard","Other"]
-        searchController.searchBar.delegate = self
-        
         searchController.searchResultsUpdater = self
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.sizeToFit()
-        self.tableView.tableHeaderView = searchController.searchBar
+        searchController.searchBar.delegate = self
         definesPresentationContext = true
+        searchController.dimsBackgroundDuringPresentation = false
+        
+        // Setup the Scope Bar
+        searchController.searchBar.scopeButtonTitles = ["All", "Chocolate", "Hard", "Other"]
+        tableView.tableHeaderView = searchController.searchBar
         // Do any additional setup after loading the view, typically from a nib.
         candies = [
             Candy(category:"Chocolate", name:"Chocolate Bar"),
@@ -36,8 +35,6 @@ class ViewController: UITableViewController , UISearchBarDelegate, UISearchResul
             Candy(category:"Other", name:"Sour Chew"),
             Candy(category:"Other", name:"Gummi Bear")
         ]
-        self.tableView.tableHeaderView = searchController.searchBar
-        definesPresentationContext = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,29 +70,39 @@ class ViewController: UITableViewController , UISearchBarDelegate, UISearchResul
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let candy = candies[indexPath.row]
+                var candy = candies[indexPath.row]
+                if searchController.isActive && searchController.searchBar.text != "" {
+                    candy = filteredCandies[indexPath.row]
+                } else {
+                    candy = candies[indexPath.row]
+                }
+
                 let controller = segue.destination  as! DetailViewController
                 controller.detailCandy = candy
                 
             }
         }
     }
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
-        filteredCandies = candies.filter { candy in
-            return candy.name.lowercased().contains(searchText.lowercased())
-        }
-        
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+        filteredCandies = candies.filter({( candy : Candy) -> Bool in
+            let categoryMatch = (scope == "All") || (candy.category == scope)
+            return categoryMatch && candy.name.lowercased().contains(searchText.lowercased())
+        })
         tableView.reloadData()
     }
-    
+}
+extension ViewController: UISearchBarDelegate {
+    // MARK: - UISearchBar Delegate
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+    }
+}
+extension ViewController: UISearchResultsUpdating {
+    // MARK: - UISearchResultsUpdating Delegate
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-        filterContentForSearchText(searchText: searchController.searchBar.text!, scope: scope)
-    }
-    
-    func searchbar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int){
-        filterContentForSearchText(searchText: searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+        filterContentForSearchText(searchController.searchBar.text!, scope: scope)
     }
 }
 
