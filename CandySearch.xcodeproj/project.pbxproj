@@ -14,6 +14,8 @@
 		6F5BAB841EBCC08100218502 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F5BAB821EBCC08100218502 /* LaunchScreen.storyboard */; };
 		6F5BAB8F1EBCC08200218502 /* CandySearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5BAB8E1EBCC08200218502 /* CandySearchTests.swift */; };
 		6F5BAB9A1EBCC08300218502 /* CandySearchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5BAB991EBCC08300218502 /* CandySearchUITests.swift */; };
+		6F5BABAA1EBCC73C00218502 /* Candy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5BABA91EBCC73C00218502 /* Candy.swift */; };
+		6F5BABAC1EBCCA1100218502 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5BABAB1EBCCA1100218502 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		6F5BAB951EBCC08200218502 /* CandySearchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CandySearchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F5BAB991EBCC08300218502 /* CandySearchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandySearchUITests.swift; sourceTree = "<group>"; };
 		6F5BAB9B1EBCC08300218502 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6F5BABA91EBCC73C00218502 /* Candy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Candy.swift; sourceTree = "<group>"; };
+		6F5BABAB1EBCCA1100218502 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +103,9 @@
 			children = (
 				6F5BAB791EBCC08100218502 /* AppDelegate.swift */,
 				6F5BAB7B1EBCC08100218502 /* ViewController.swift */,
+				6F5BABA91EBCC73C00218502 /* Candy.swift */,
 				6F5BAB7D1EBCC08100218502 /* Main.storyboard */,
+				6F5BABAB1EBCCA1100218502 /* DetailViewController.swift */,
 				6F5BAB801EBCC08100218502 /* Assets.xcassets */,
 				6F5BAB821EBCC08100218502 /* LaunchScreen.storyboard */,
 				6F5BAB851EBCC08100218502 /* Info.plist */,
@@ -260,6 +266,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F5BAB7C1EBCC08100218502 /* ViewController.swift in Sources */,
+				6F5BABAA1EBCC73C00218502 /* Candy.swift in Sources */,
+				6F5BABAC1EBCCA1100218502 /* DetailViewController.swift in Sources */,
 				6F5BAB7A1EBCC08100218502 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
